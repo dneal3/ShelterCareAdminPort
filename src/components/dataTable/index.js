@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { stringLiteral } from '@babel/types';
 
 class CreateTables extends React.Component {
     constructor(props){
@@ -167,8 +168,11 @@ class CreateTables extends React.Component {
     constructor(props){
       super(props);
       this.query = props.query;
+      this.field = (this.props.query).toLowerCase();
+      this.field_upper = (this.props.query).toUpperCase();
       this.elements = undefined;
       this.state = {
+        inputVal: "",
         elements: [] //this is a list of all the elements gotten from the database in fetch information
       };
       
@@ -211,8 +215,7 @@ class CreateTables extends React.Component {
       var els = this.props.elements.map( (item, i) => {
         return (
           <tr key={i}>
-            <td key={i}> {item} <button onClick={() => this.removeInfo(item)}>-</button> </td>
-            
+            <td key={i}> {item} <button onClick={() => {this.props.firebase.doDeleteHelper({type: this.field, deleting: item, statusFunc: this.props.updateStatus}, () => {this.props.updateField("DELETE"+this.field_upper, item);})}}>-</button> </td>  
           </tr>
         );} 
         ) 
@@ -222,14 +225,25 @@ class CreateTables extends React.Component {
           <table>
             <thead>
               <tr>
-                <th>Email</th>
+                <td>
+                  <input type="text" placeholder="add items here" id={"add_bar_"+this.props.query} value = {this.state.inputVal} onChange ={(event)=> {this.setState({inputVal: event.target.value})}}></input>
+                </td>
               </tr>
             </thead>
             <tbody>
               {els}
             </tbody>
           </table>
-          <button onClick={() => this.addInfo()}>+</button> 
+          <button onClick={()=>{
+            var toAdd = window.document.getElementById("add_bar_"+this.props.query).value;
+            console.log(toAdd);
+            if(toAdd === "")
+            {
+              this.props.updateStatus("Cannot add an empty string to the database");
+              return ;
+            }
+            this.props.firebase.doAddHelper({type: this.field, adding: toAdd, statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADD"+this.field_upper, toAdd);});}
+          }>+</button> 
         </div>
       )
     }

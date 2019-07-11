@@ -54,7 +54,7 @@ const fieldReducer = (state=initialFieldState, action) => {
             switch (action.payload)
             {
                 case "all":
-                        newState = initialFieldState;
+                    newState = initialFieldState;
                 case "admin":
                     newState.adminField = emptyList;
                     break;
@@ -78,6 +78,7 @@ const fieldReducer = (state=initialFieldState, action) => {
         case "ADDADMIN":
             var admins = [...state.adminField];
             admins.push(action.payload);
+            admins.sort();
             newState.adminField = admins;
             break;
         case "DELETEADMIN":
@@ -94,6 +95,7 @@ const fieldReducer = (state=initialFieldState, action) => {
         case "ADDISSUE":
             var issues = [...state.issueField];
             issues.push(action.payload);
+            issues.sort();
             newState.issueField = issues;
             break;
         case "DELETEISSUE":
@@ -124,7 +126,46 @@ const fieldReducer = (state=initialFieldState, action) => {
             responses.splice(i, 1);
             newState.responseField = responses;
             break;
-        
+        case "ADDPROGRAM":
+            var programs = [...state.programField];
+            programs.push(action.payload);
+            programs.sort();
+            newState.programField = programs;
+            break;
+        case "DELETEPROGRAM":
+            var programs = [...state.programField];
+            var i = 0;
+            length = programs.length;
+            for(i; i<length; i++)
+            {
+                if(programs[i] === action.payload){break;}
+            }
+            programs.splice(i, 1);
+            newState.programField = programs;
+            break;
+        case "ADDUSER":
+            var users = [...state.userField];
+            users.push(action.payload);
+            users.sort();
+            newState.userField = users;
+            break;
+        case "DELETEUSER":
+            var users = [...state.userField];
+            var i = 0;
+            length = users.length;
+            for(i; i<length; i++)
+            {
+                if(users[i] === action.payload){break;}
+            }
+            users.splice(i, 1);
+            newState.userField = users;
+            break;
+        case "ADDADDRESS":
+            console.log("Addresses?");
+            break;
+        case "DELETEADDRESS":
+            console.log("Addresses?");
+            break;
         default:
             break;
     }

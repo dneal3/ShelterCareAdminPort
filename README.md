@@ -5,6 +5,12 @@ firebase can be intialized with firebase init
 only need storage, hosting, and database selections from firebase, set up with hfac-sc project
 when prompted to input the public directory, choose the name "build"(this allows us to do "npm build" and immediately "firebase serve" from the build directory
 
+ADDED FOR DEVELOPMENT:
+each accordian item starts expanded
+
+KNOWN BUGS:
+each field name appears in the admin list on redux, but not in firebase
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -21,17 +21,11 @@ class Fields extends React.Component
         //TODO: change to make dynamic
         if(clearList)
         {
-            this.props.clearList("response");
+            this.props.clearList(type);
         }
         else
         {
-            switch(type)
-            {
-                case "response" : this.props.updateField("ADDRESPONSE", newElement);
-                        break;
-                default:
-                    break;
-            }
+            this.props.updateField("ADD"+type.toUpperCase(), newElement);
         }
     }
     getField(field)
@@ -40,10 +34,7 @@ class Fields extends React.Component
         var fieldList;
         switch(field)
         {
-            case "address":
-                //TODO are we supporting addresses?
-                fieldList = [];
-                break;
+            
             case "admin":
                 fieldList = this.props.fields.adminField;
                 break;
@@ -59,6 +50,8 @@ class Fields extends React.Component
             case "user":
                 fieldList = this.props.fields.userField;
                 break;
+            case "address":
+                //TODO are we supporting addresses?
             default:
                 console.log('unrecognized field ' + field + ' name in getField');
                 fieldList = []; // avoid crash by iterating over nothing
@@ -74,11 +67,12 @@ class Fields extends React.Component
         if(field === "all")
         {
             this.props.firebase.doSearch({type:"response", substr:window.document.getElementById("resSearchInput").value, updateListBind: this.updateList.bind(this)}, this.props.updateStatus);
-            /*this.props.firebase.doSearch({type:"admin", substr:window.document.getElementById("adminSearchInput").value, updateListBind: this.updateList.bind(this)}, this.props.updateStatus);
+            this.props.firebase.doSearch({type:"admin", substr:window.document.getElementById("adminSearchInput").value, updateListBind: this.updateList.bind(this)}, this.props.updateStatus);
             this.props.firebase.doSearch({type:"issue", substr:window.document.getElementById("issueSearchInput").value, updateListBind: this.updateList.bind(this)}, this.props.updateStatus);
             this.props.firebase.doSearch({type:"user", substr:window.document.getElementById("userSearchInput").value, updateListBind: this.updateList.bind(this)}, this.props.updateStatus);
+            
             this.props.firebase.doSearch({type:"program", substr:window.document.getElementById("programSearchInput").value, updateListBind: this.updateList.bind(this)}, this.props.updateStatus);
-        */
+        
         }
         else if(field === "response")
         {
@@ -103,6 +97,7 @@ class Fields extends React.Component
         
     }
     render(){
+       // console.log(this.props.fields);
         return(
             <div>
                 <div/>
@@ -110,9 +105,10 @@ class Fields extends React.Component
                 <Accordion allowMultiple = {true}>
         {['User', 'Admin', 'Program', 'Issue', 'Response', 'Address'].map(item => {
           return (
-            <AccordionItem key = {item} title={`${item}`}>
-              <DatabaseTable query = {item} firebase = {this.props.firebase} elements = {this.getField(item.toLowerCase())}/>
+            <AccordionItem key = {item} title={`${item}`} expanded = {true}>
+              <DatabaseTable query = {item} firebase = {this.props.firebase} updateStatus = {this.props.updateStatus} updateField = {this.props.updateField} elements = {this.getField(item.toLowerCase())}/>
             </AccordionItem>
+
           );
         })}
       </Accordion>

@@ -96,14 +96,13 @@ import 'firebase/database';
     {
       var db = firebase.database().ref();
       var path = "/"+parseString(inObj.type)+"s/";
-      console.log("searching objects at " + path);
       db.child(path).once('value').then(function(snapshot){
         if(!snapshot.exists())
         {
           statusBind("Could not search " + inObj.type + "s as they do not exist in the database");
           return ;
         }
-        inObj.updateListBind("", "",true);
+        inObj.updateListBind("", inObj.type, true);
         snapshot.forEach(function(secondSnap){
           const subString = inObj.substr.toLowerCase();
           const entry = ("" + secondSnap.key).toLowerCase();
