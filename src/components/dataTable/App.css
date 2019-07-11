@@ -1,11 +1,67 @@
-table {
+nav, a {
+  color: rgb(249, 247, 231);
+}
+
+header {
+  background-image: linear-gradient(to right, rgb(30, 106, 172) , rgb(19, 69, 109));
+  color: rgb(249, 247, 231);
+  min-height: 0.5in;
+}
+
+footer {
+  background-image: linear-gradient(to right, rgb(30, 106, 172) , rgb(19, 69, 109));
+  color: rgb(249, 247, 231);
+}
+
+.table {
+  width: 4in;
+  margin-bottom: 0px;
+}
+
+#select-area {
+  background-color: white;
+}
+
+.form-control {
+  display: inline-block;
+  max-width: 3in;
+  margin: 0px 0px 0px 0px;
+}
+
+.tables {
+  font-size: 20px;
+  margin: 0px 10px 50px 10px;
+  box-shadow: 1px 1px 1px grey;
+  background-color:  rgb(249, 247, 231);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 2px;
+  width: 4.02in;
+  border-color: black;
   border-collapse: collapse;
 }
 
-table, th, td {
-  border: 1px solid black;
+#search-bars, button {
+  margin: 5px 5px 5px 5px;
 }
 
-th {
-  text-align: left;
+#rem-btn{
+  padding: 1px 9px;
+  font-size: 15px;
+  margin: 5px;
+  border-radius: 50%;
+  text-align: center;
 }
+
+#add-btn {
+  padding: 1px 8px;
+  font-size: 15px;
+  margin: 5px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+* {
+  font-family: Roboto;
+}
+

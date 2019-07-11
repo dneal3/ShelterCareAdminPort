@@ -100,7 +100,7 @@ class Fields extends React.Component
        // console.log(this.props.fields);
         return(
             <div>
-                <div/>
+                <br/>
                 <hr/>
                 <Accordion allowMultiple = {true}>
         {['User', 'Admin', 'Program', 'Issue', 'Response', 'Address'].map(item => {
@@ -112,39 +112,51 @@ class Fields extends React.Component
           );
         })}
       </Accordion>
-                <p>Admins</p>
-                <input id="adminSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("admin",event)}}></input>
-                <button id="addAdmin" onClick={()=>{this.props.firebase.doAddAdmin("test.AdminsEmail@gmail.com", this.props.updateStatus);}}>Add an admin</button>
-                <button id="delAdmin" onClick={()=>{this.props.firebase.doDeleteAdmin("test.AdminsEmail@gmail.com", this.props.updateStatus);}}>Delete an admin</button>
-                <div/>
+            <div className='container-fluid' id='search-bars'>
+                <h4>Admins Search</h4>
+                <input className='form-control' id="adminSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("admin",event)}}></input>
+                <button className='btn btn-primary btn-sm' id="addAdmin" onClick={()=>{this.props.firebase.doAddAdmin("test.AdminsEmail@gmail.com", this.props.updateStatus);}}>Add an admin</button>
+                <button className='btn btn-primary btn-sm' id="delAdmin" onClick={()=>{this.props.firebase.doDeleteAdmin("test.AdminsEmail@gmail.com", this.props.updateStatus);}}>Delete an admin</button>
+                <br/>
+                
                 <hr/>
-                <p>Users</p>
-                <input id="userSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("user",event)}}></input>
-                <button id="addUser" onClick={()=>{this.props.firebase.doAddUser("test.UserEmails@gmail.com", this.props.updateStatus);}}>Add an User</button>
-                <button id="delUser" onClick={()=>{this.props.firebase.doDeleteUser("test.UserEmails@gmail.com", this.props.updateStatus);}}>Delete an User</button>
-                <div/>
+                
+                <h4>Users Search</h4>
+                <input className='form-control' id="userSearchInput" type="text" placeholder="search" onChange={(event)=>{this.setSearch("user",event)}}></input>
+                <button className='btn btn-primary btn-sm' id="addUser" onClick={()=>{this.props.firebase.doAddUser("test.UserEmails@gmail.com", this.props.updateStatus);}}>Add an User</button>
+                <button className='btn btn-primary btn-sm' id="delUser" onClick={()=>{this.props.firebase.doDeleteUser("test.UserEmails@gmail.com", this.props.updateStatus);}}>Delete an User</button>
+                <br/>
+                
                 <hr/>
-                <p>Issues</p>
-                <input id="issueSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("issue",event)}}></input>
-                <button id="addIssue" onClick={()=>{this.props.firebase.doAddIssue("test issue", this.props.updateStatus);}}>Add an issue</button>
-                <button id="delIssue" onClick={()=>{this.props.firebase.doDeleteIssue("test issue", this.props.updateStatus);}}>Delete an issue</button>
-                <div/>
+
+                <h4>Issue Search</h4>
+                <input className='form-control' id="issueSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("issue",event)}}></input>
+                <button className='btn btn-primary btn-sm' id="addIssue" onClick={()=>{this.props.firebase.doAddIssue("test issue", this.props.updateStatus);}}>Add an issue</button>
+                <button className='btn btn-primary btn-sm' id="delIssue" onClick={()=>{this.props.firebase.doDeleteIssue("test issue", this.props.updateStatus);}}>Delete an issue</button>
+                <br/>
+                
                 <hr/>
-                <p>Responses</p>
-                <input id="resSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("response",event)}}></input>
-                <div />
-                <button id="addResponse" onClick={()=>{this.props.firebase.doAddHelper({type: "response", adding: "test response", statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADDRESPONSE", "test response")});}}>Add a response</button>
-                <button id="delResponse" onClick={()=>{this.props.firebase.doDeleteHelper({type: "response", deleting: "test response", statusFunc: this.props.updateStatus}, () => {this.props.updateField("DELETERESPONSE", "test response");});}}>Delete a response</button>
+                
+                <h4>Response Search</h4>
+                <input className='form-control' id="resSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("response",event)}}></input>
+                <button className='btn btn-primary btn-sm' id="addResponse" onClick={()=>{this.props.firebase.doAddHelper({type: "response", adding: "test response", statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADDRESPONSE", "test response")});}}>Add a response</button>
+                <button className='btn btn-primary btn-sm' id="delResponse" onClick={()=>{this.props.firebase.doDeleteHelper({type: "response", deleting: "test response", statusFunc: this.props.updateStatus}, () => {this.props.updateField("DELETERESPONSE", "test response");});}}>Delete a response</button>
                 <ul>
                 {this.getField("response")}
                 </ul>
-                <div/>
+                <br/>
+                
                 <hr/>
-                <p>Programs</p>
-                <input id="programSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("program",event)}}></input>
-                <button id="addProgram" onClick={()=>{this.props.firebase.doAddProgram("test program", this.props.updateStatus);}}>Add a program</button>
-                <button id="delProgram" onClick={()=>{this.props.firebase.doDeleteProgram("test program", this.props.updateStatus);}}>Delete a program</button>
+                
+                <p>Program Search</p>
+                <input className='form-control' id="programSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("program",event)}}></input>
+                <button className='btn btn-primary btn-sm' id="addProgram" onClick={()=>{this.props.firebase.doAddProgram("test program", this.props.updateStatus);}}>Add a program</button>
+                <button className='btn btn-primary btn-sm' id="delProgram" onClick={()=>{this.props.firebase.doDeleteProgram("test program", this.props.updateStatus);}}>Delete a program</button>
+                <br />
+
+                <hr/>
             </div>
+        </div>
         );
     }
 }

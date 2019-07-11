@@ -158,7 +158,7 @@ class CreateTables extends React.Component {
   
     render () {
       return (
-        <button onClick={() => this.onExOrMin()}> {this.state.symbol} </button>
+        <button className='btn btn-info btn-sm' onClick={() => this.onExOrMin()}> {this.state.symbol} </button>
       );
     }
   
@@ -195,7 +195,9 @@ class CreateTables extends React.Component {
       })
     }
   
-    addInfo() {             //todo, add item to firebase and redux
+    addInfo() {             
+      
+      //todo, add item to firebase and redux
       //need to ask for user input or something
       //then add that to the elements list, and the database
   
@@ -215,18 +217,28 @@ class CreateTables extends React.Component {
       var els = this.props.elements.map( (item, i) => {
         return (
           <tr key={i}>
-            <td key={i}> {item} <button onClick={() => {this.props.firebase.doDeleteHelper({type: this.field, deleting: item, statusFunc: this.props.updateStatus}, () => {this.props.updateField("DELETE"+this.field_upper, item);})}}>-</button> </td>  
+            <td key={i}> {item} <button id='rem-btn' className='btn btn-danger btn-sm' onClick={() => {this.props.firebase.doDeleteHelper({type: this.field, deleting: item, statusFunc: this.props.updateStatus}, () => {this.props.updateField("DELETE"+this.field_upper, item);})}}>-</button> </td>  
           </tr>
         );} 
         ) 
   
       return (
-        <div>
-          <table>
+        <div className='tables'>
+          <table className='table table-bordered'>
             <thead>
               <tr>
                 <td>
-                  <input type="text" placeholder="add items here" id={"add_bar_"+this.props.query} value = {this.state.inputVal} onChange ={(event)=> {this.setState({inputVal: event.target.value})}}></input>
+                  <input type="text" className='form-control' placeholder="add items here" id={"add_bar_"+this.props.query} value = {this.state.inputVal} onChange ={(event)=> {this.setState({inputVal: event.target.value})}}></input>
+                  <button id='add-btn' className='btn btn-success btn-sm' onClick={()=>{
+                    var toAdd = window.document.getElementById("add_bar_"+this.props.query).value;
+                    console.log(toAdd);
+                    if(toAdd === "")
+                    {
+                      this.props.updateStatus("Cannot add an empty string to the database");
+                      return ;
+                    }
+                    this.props.firebase.doAddHelper({type: this.field, adding: toAdd, statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADD"+this.field_upper, toAdd);}) }
+                  }>+</button> 
                 </td>
               </tr>
             </thead>
@@ -234,16 +246,7 @@ class CreateTables extends React.Component {
               {els}
             </tbody>
           </table>
-          <button onClick={()=>{
-            var toAdd = window.document.getElementById("add_bar_"+this.props.query).value;
-            console.log(toAdd);
-            if(toAdd === "")
-            {
-              this.props.updateStatus("Cannot add an empty string to the database");
-              return ;
-            }
-            this.props.firebase.doAddHelper({type: this.field, adding: toAdd, statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADD"+this.field_upper, toAdd);});}
-          }>+</button> 
+          
         </div>
       )
     }
