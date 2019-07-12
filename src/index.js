@@ -55,6 +55,7 @@ const fieldReducer = (state=initialFieldState, action) => {
             {
                 case "all":
                     newState = initialFieldState;
+                    break;
                 case "admin":
                     newState.adminField = emptyList;
                     break;
@@ -74,7 +75,7 @@ const fieldReducer = (state=initialFieldState, action) => {
                     //console.log("unrecognized field name in reducer");
                     break;
             }
-
+            break;
         case "ADDADMIN":
             var admins = [...state.adminField];
             admins.push(action.payload);
