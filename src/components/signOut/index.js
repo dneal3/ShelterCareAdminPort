@@ -3,7 +3,7 @@ import React from 'react';
 class SignOut extends React.Component{
     render(){
         return(
-            <button id="signOutButton" onClick={()=>{this.props.firebase.doSignOut(this.props.signOutBind)}}>Sign Out</button>
+            <button className="btn btn-danger btn-md" id="signOutButton" onClick={()=>{this.props.firebase.doSignOut(this.props.signOutBind)}}>Sign Out</button>
         );
     }
 }

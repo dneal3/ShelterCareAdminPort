@@ -12,7 +12,7 @@ class SignIn extends React.Component{
         timeout();
         return(
             <div>
-                <button id="signIn" onClick={() => {this.props.firebase.doSignIn(this.props.signInBind)}}>Sign in!</button>
+                <button className="btn btn-success btn-md"  id="signIn" onClick={() => {this.props.firebase.doSignIn(this.props.signInBind)}}>Sign in!</button>
             </div>
         );
     }

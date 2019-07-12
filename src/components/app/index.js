@@ -13,12 +13,10 @@ const ADMIN = '/admin';
 const App = () => (
 	<div>
 		<Router>
-			<Navigation/>
+			
 			<Route path={LANDING} component={Home}></Route>
 			<Route path={HOME} ></Route>
-			
 		</Router>
-		<h1>App</h1>
 	</div>
 );
 
