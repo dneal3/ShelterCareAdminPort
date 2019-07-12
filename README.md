@@ -40,7 +40,7 @@ ADDED FOR DEVELOPMENT:
 each accordian item starts expanded
 
 KNOWN BUGS:
-each field name appears in the admin list on redux, but not in firebase
+admin emails displayed are parsed(no . $ # [ ] are displayed) 
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

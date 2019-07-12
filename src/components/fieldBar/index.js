@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import AdminPortal, {DatabaseTable} from '../dataTable';
+import {DatabaseTable} from '../dataTable';
 import { Accordion, AccordionItem } from 'react-sanfona';
 
 
@@ -52,8 +52,10 @@ class Fields extends React.Component
                 break;
             case "address":
                 //TODO are we supporting addresses?
+                fieldList = [];
+                break;
             default:
-                console.log('unrecognized field ' + field + ' name in getField');
+              //  console.log('unrecognized field ' + field + ' name in getField');
                 fieldList = []; // avoid crash by iterating over nothing
                 break;
         }
@@ -141,9 +143,6 @@ class Fields extends React.Component
                 <input className='form-control' id="resSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("response",event)}}></input>
                 <button className='btn btn-primary btn-sm' id="addResponse" onClick={()=>{this.props.firebase.doAddHelper({type: "response", adding: "test response", statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADDRESPONSE", "test response")});}}>Add a response</button>
                 <button className='btn btn-primary btn-sm' id="delResponse" onClick={()=>{this.props.firebase.doDeleteHelper({type: "response", deleting: "test response", statusFunc: this.props.updateStatus}, () => {this.props.updateField("DELETERESPONSE", "test response");});}}>Delete a response</button>
-                <ul>
-                {this.getField("response")}
-                </ul>
                 <br/>
                 
                 <hr/>

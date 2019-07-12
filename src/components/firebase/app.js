@@ -78,6 +78,7 @@ import 'firebase/database';
       else
       {
         console.log("user already signed in");
+        this.checkStatus(cleanUpFunc);
       }
     }
     doSignOut(cleanUpFunc){

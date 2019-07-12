@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import { stringLiteral } from '@babel/types';
 
 class CreateTables extends React.Component {
     constructor(props){
@@ -178,46 +177,13 @@ class CreateTables extends React.Component {
       
     }
   
-    fetchInformation(query){
-      // get the info from firebase 
-      // fetch information into a list
-      var els = ["daniel.loyd19@gmail.com", "test.email@gmail.com"]
-      //maybe make a state of emails and the map that to a table, store it in state and have a button that removes that string
-      this.elements = this.props.elements;
-    }
-  
-    removeInfo(item){       // todo, remove item directly from redux and firebase
-      //remove stuff from the elements list and database
-  
-      this.elements.splice(this.elements.indexOf(item), 1);
-      this.setState({
-        elements: this.elements
-      })
-    }
-  
-    addInfo() {             
-      
-      //todo, add item to firebase and redux
-      //need to ask for user input or something
-      //then add that to the elements list, and the database
-  
-      var item = prompt("Enter Email");
-      this.elements.push(item);
-      this.setState({
-        elements: this.elements
-      })
-    }
-  
     buildTable()
     {
-      if(this.elements === undefined){
-        this.fetchInformation(this.query);
-      }
-  
       var els = this.props.elements.map( (item, i) => {
         return (
           <tr key={i}>
-            <td key={i}> {item} <button id='rem-btn' className='btn btn-danger btn-sm' onClick={() => {this.props.firebase.doDeleteHelper({type: this.field, deleting: item, statusFunc: this.props.updateStatus}, () => {this.props.updateField("DELETE"+this.field_upper, item);})}}>-</button> </td>  
+            <td key={i}> {item} </td>
+            <td><button id='rem-btn' className='btn btn-danger btn-sm' onClick={() => {this.props.firebase.doDeleteHelper({type: this.field, deleting: item, statusFunc: this.props.updateStatus}, () => {this.props.updateField("DELETE"+this.field_upper, item);})}}>-</button> </td>  
           </tr>
         );} 
         ) 

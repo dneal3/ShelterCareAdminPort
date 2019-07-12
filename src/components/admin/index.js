@@ -4,10 +4,6 @@ import {FirebaseContext} from '../firebase';
 import Fields from '../fieldBar';
 class Admin extends React.Component
 {
-    constructor()
-    {
-        super();
-    }
     render(){
         return(     
         <div>

@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#signIn-button{
+  width: 150px;
+  height: 50px;
+}
+
+/*div container of the sign in component*/
+.signIn {     
+  margin: auto;
+  width: 500px;
+  /*border: 1px solid black;*/
+}
+
+/*table inside of the component*/
+.signIn-table{
+  width: 450px;
+  height: 600px;
+  margin: auto;
+  box-shadow: 0 0 0 2px rgb(88, 88, 88);
+  border-radius: 20px;
+  text-align: center;
+}
+.signIn-table td{
+  display: inline-block;
+  padding: 15px;
+}

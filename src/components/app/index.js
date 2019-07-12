@@ -1,23 +1,47 @@
 import React from "react";
-import { BrowserRouter as Router, Route} from 'react-router-dom';
-
-import Navigation from '../navigation';
+import {connect } from 'react-redux';
 import Home from '../home';
 import SignIn from '../signIn';
+import { FirebaseContext } from '../firebase';
 
-const LANDING = '/';
-const SIGN_IN = '/signin';
-const HOME = '/home';
-const ADMIN = '/admin';
+class App extends React.Component
+{
+	constructor()
+	{
+		super();
+		this.signInComponent = <FirebaseContext.Consumer>
+		{
+			firebase => 
+				<SignIn firebase = {firebase} />
+		
+		}
+	</FirebaseContext.Consumer>;
+		this.toRender = this.signInComponent;
+	}
+	render(){
+		//console.log(this.props);
 
-const App = () => (
-	<div>
-		<Router>
-			
-			<Route path={LANDING} component={Home}></Route>
-			<Route path={HOME} ></Route>
-		</Router>
-	</div>
-);
+		if (this.props.auth.userSignedIn){this.toRender = <Home />;}
+		else {this.toRender = this.signInComponent;}
+		return(
+			<div>
+				{this.toRender}
+			</div>
+		);
+	}
+	
+}
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        auth: state.userAuthReducer 
+    }
+};
+const mapDispatcherToProps = (dispatch) => {
+    return {
+        userSignIn: (userObj) => {dispatch({
+			type: "SIGNIN",
+			payload: userObj})},
+    }
+};
+export default connect(mapStateToProps, mapDispatcherToProps)(App);

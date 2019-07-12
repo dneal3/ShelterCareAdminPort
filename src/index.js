@@ -43,7 +43,8 @@ const initialFieldState = {responseField: [],
                             };
 const fieldReducer = (state=initialFieldState, action) => {
     var newState = {...state};
-    var length;
+    var length, i;
+    var newList = [];
     switch(action.type)
     {
         case "UPDATESTATUS":
@@ -77,89 +78,89 @@ const fieldReducer = (state=initialFieldState, action) => {
             }
             break;
         case "ADDADMIN":
-            var admins = [...state.adminField];
-            admins.push(action.payload);
-            admins.sort();
-            newState.adminField = admins;
+            newList = [...state.adminField];
+            newList.push(action.payload);
+            newList.sort();
+            newState.adminField = newList;
             break;
         case "DELETEADMIN":
-            var admins = [...state.adminField];
-            var i = 0;
-            length = admins.length;
+            newList = [...state.adminField];
+            i = 0;
+            length = newList.length;
             for(i; i<length; i++)
             {
-                if(admins[i] === action.payload){break;}
+                if(newList[i] === action.payload){break;}
             }
-            admins.splice(i, 1);
-            newState.adminField = admins;
+            newList.splice(i, 1);
+            newState.adminField = newList;
             break;
         case "ADDISSUE":
-            var issues = [...state.issueField];
-            issues.push(action.payload);
-            issues.sort();
-            newState.issueField = issues;
+            newList = [...state.issueField];
+            newList.push(action.payload);
+            newList.sort();
+            newState.issueField = newList;
             break;
         case "DELETEISSUE":
-            var issues = [...state.issueField];
-            var i = 0;
-            length = issues.length;
+            newList = [...state.issueField];
+            i = 0;
+            length = newList.length;
             for(i; i<length; i++)
             {
-                if(issues[i] === action.payload){break;}
+                if(newList[i] === action.payload){break;}
             }
-            issues.splice(i, 1);
-            newState.issueField = issues;
+            newList.splice(i, 1);
+            newState.issueField = newList;
             break;
         case "ADDRESPONSE":
-            var responses = [...state.responseField];
-            responses.push(action.payload);
-            responses.sort();
-            newState.responseField = responses;
+            newList = [...state.responseField];
+            newList.push(action.payload);
+            newList.sort();
+            newState.responseField = newList;
             break;
         case "DELETERESPONSE":
-            var responses = [...state.responseField];
-            var i = 0;
-            length = responses.length;
+            newList = [...state.responseField];
+            i = 0;
+            length = newList.length;
             for(i; i<length; i++)
             {
-               if(responses[i] === action.payload){break;}
+               if(newList[i] === action.payload){break;}
             }
-            responses.splice(i, 1);
-            newState.responseField = responses;
+            newList.splice(i, 1);
+            newState.responseField = newList;
             break;
         case "ADDPROGRAM":
-            var programs = [...state.programField];
-            programs.push(action.payload);
-            programs.sort();
-            newState.programField = programs;
+            newList = [...state.programField];
+            newList.push(action.payload);
+            newList.sort();
+            newState.programField = newList;
             break;
         case "DELETEPROGRAM":
-            var programs = [...state.programField];
-            var i = 0;
-            length = programs.length;
+            newList = [...state.programField];
+            i = 0;
+            length = newList.length;
             for(i; i<length; i++)
             {
-                if(programs[i] === action.payload){break;}
+                if(newList[i] === action.payload){break;}
             }
-            programs.splice(i, 1);
-            newState.programField = programs;
+            newList.splice(i, 1);
+            newState.programField = newList;
             break;
         case "ADDUSER":
-            var users = [...state.userField];
-            users.push(action.payload);
-            users.sort();
-            newState.userField = users;
+            newList = [...state.userField];
+            newList.push(action.payload);
+            newList.sort();
+            newState.userField = newList;
             break;
         case "DELETEUSER":
-            var users = [...state.userField];
-            var i = 0;
-            length = users.length;
+            newList = [...state.userField];
+            i = 0;
+            length = newList.length;
             for(i; i<length; i++)
             {
-                if(users[i] === action.payload){break;}
+                if(newList[i] === action.payload){break;}
             }
-            users.splice(i, 1);
-            newState.userField = users;
+            newList.splice(i, 1);
+            newState.userField = newList;
             break;
         case "ADDADDRESS":
             console.log("Addresses?");
