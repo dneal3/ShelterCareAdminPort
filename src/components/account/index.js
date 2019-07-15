@@ -4,13 +4,13 @@ class Account extends React.Component{
     render()
     {
         return(
-            <div>
-                <div> 
-                    page for any signed in user to see
-                    <div></div>
-                    Your name is {this.props.userName}
-                    <div></div>
-                    Your email is {this.props.userEmail}
+            <div className='container-fluid'>
+                <div className='tables'> 
+                    <p>Page for any signed in user to see</p>
+                    <hr/>
+                    <p>Your name is {this.props.userName}</p>
+                    <hr/>
+                    <p>Your email is {this.props.userEmail}</p>  
                 </div>
             </div>
         );

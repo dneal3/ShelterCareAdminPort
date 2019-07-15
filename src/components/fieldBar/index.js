@@ -147,7 +147,7 @@ class Fields extends React.Component
                 
                 <hr/>
                 
-                <p>Program Search</p>
+                <h4>Program Search</h4>
                 <input className='form-control' id="programSearchInput"type="text" placeholder="search" onChange={(event)=>{this.setSearch("program",event)}}></input>
                 <button className='btn btn-primary btn-sm' id="addProgram" onClick={()=>{this.props.firebase.doAddProgram("test program", this.props.updateStatus);}}>Add a program</button>
                 <button className='btn btn-primary btn-sm' id="delProgram" onClick={()=>{this.props.firebase.doDeleteProgram("test program", this.props.updateStatus);}}>Delete a program</button>

@@ -14,7 +14,7 @@ footer {
 }
 
 .table {
-  width: 4in;
+  width: 4.0in;
   margin-bottom: 0px;
 }
 
@@ -23,8 +23,8 @@ footer {
 }
 
 .form-control {
-  display: inline-block;
-  max-width: 3in;
+  display: inline;
+  max-width: 2.5in;
   margin: 0px 0px 0px 0px;
 }
 

@@ -190,21 +190,23 @@ class CreateTables extends React.Component {
   
       return (
         <div className='tables'>
-          <table className='table table-bordered'>
+          <table className='table'>
             <thead>
               <tr>
                 <td>
                   <input type="text" className='form-control' placeholder="add items here" id={"add_bar_"+this.props.query} value = {this.state.inputVal} onChange ={(event)=> {this.setState({inputVal: event.target.value})}}></input>
+                </td>
+                <td>
                   <button id='add-btn' className='btn btn-success btn-sm' onClick={()=>{
-                    var toAdd = window.document.getElementById("add_bar_"+this.props.query).value;
-                    console.log(toAdd);
-                    if(toAdd === "")
-                    {
-                      this.props.updateStatus("Cannot add an empty string to the database");
-                      return ;
-                    }
-                    this.props.firebase.doAddHelper({type: this.field, adding: toAdd, statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADD"+this.field_upper, toAdd);}) }
-                  }>+</button> 
+                      var toAdd = window.document.getElementById("add_bar_"+this.props.query).value;
+                      console.log(toAdd);
+                      if(toAdd === "")
+                      {
+                        this.props.updateStatus("Cannot add an empty string to the database");
+                        return ;
+                      }
+                      this.props.firebase.doAddHelper({type: this.field, adding: toAdd, statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADD"+this.field_upper, toAdd);}) }
+                    }>+</button> 
                 </td>
               </tr>
             </thead>
