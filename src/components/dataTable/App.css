@@ -45,6 +45,11 @@ footer {
   margin: 5px 5px 5px 5px;
 }
 
+.navbar-brand{
+  justify-content: center;
+  margin: 0px;
+}
+
 #rem-btn{
   padding: 1px 9px;
   font-size: 15px;
@@ -59,6 +64,12 @@ footer {
   margin: 5px;
   border-radius: 50%;
   text-align: center;
+}
+
+#signOutbutton {
+  display: inline;
+  padding: 0px;
+
 }
 
 * {
