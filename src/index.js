@@ -7,6 +7,7 @@ import App from './components/app';
 import * as serviceWorker from './serviceWorker';
 import Firebase, {FirebaseContext} from './components/firebase';
 import {emptyMsg} from './constants/emptyMessages';
+import Navbar from './components/navigation'
 
 const initialState = {userSignedIn: false,
     email: "",
@@ -207,12 +208,22 @@ const fieldReducer = (state=initialFieldState, action) => {
     return newState;
 };
 
+
 const store = createStore(combineReducers({userAuthReducer, fieldReducer}));
 //store.subscribe(()=>{console.log(store.getState())});
 
+const firedb = new Firebase();
+
+ReactDOM.render(
+        <Provider store={store}>
+                <FirebaseContext.Provider value={firedb}>
+                    <Navbar />
+                </FirebaseContext.Provider>
+        </Provider>, document.getElementById("navbar-container"));
+
 ReactDOM.render(
     <Provider store={store}>
-        <FirebaseContext.Provider value={new Firebase()}>
+        <FirebaseContext.Provider value={firedb}>
             <App />
         </FirebaseContext.Provider>
     </Provider>, document.getElementById('root'));

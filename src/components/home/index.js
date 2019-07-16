@@ -32,13 +32,6 @@ class Home extends React.Component{
         }
         return (
             <div>
-                <FirebaseContext.Consumer>
-                    {
-                        firebase => 
-                            <SignOut firebase = {firebase} signOutBind = {this.signOutUser.bind(this)}/>
-                    
-                    }
-                </FirebaseContext.Consumer>
                 {accountPage}
                 {adminPage}
             </div>
