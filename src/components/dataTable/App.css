@@ -14,9 +14,11 @@ footer {
 }
 
 .table {
+  display: block;
   width: 4.0in;
-  height: 110px;
+  height: 500px;
   margin-bottom: 0px;
+  overflow-y: scroll;
 }
 
 #select-area {
