@@ -7,12 +7,7 @@ class Admin extends React.Component
     render(){
         return(     
         <div>
-            <div>
-                <p>
-                   Page only for admins to see
-                </p>
-                <p id="statusInformer">{"Status: "+this.props.status}</p>
-            </div>
+            <p id="statusInformer">{"Status: "+this.props.status}</p>
             <FirebaseContext.Consumer>
                 {
                     firebaseIn => 

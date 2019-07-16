@@ -6,6 +6,7 @@ import './index.css';
 import App from './components/app';
 import * as serviceWorker from './serviceWorker';
 import Firebase, {FirebaseContext} from './components/firebase';
+import {emptyMsg} from './constants/emptyMessages';
 
 const initialState = {userSignedIn: false,
     email: "",
@@ -39,8 +40,18 @@ const initialFieldState = {responseField: [],
                             userField: [],
                             adminField: [],
                             programField: [],
+                            addressField: [],
                             status: "no action taken"
                             };
+function freshen(listIn)
+{
+    // removes no entries message from the list
+    if(listIn.length === 1 && listIn[0] === emptyMsg )
+    {
+        console.log("popping from: ", listIn);
+        listIn.pop();
+    }
+}
 const fieldReducer = (state=initialFieldState, action) => {
     var newState = {...state};
     var length, i;
@@ -56,9 +67,13 @@ const fieldReducer = (state=initialFieldState, action) => {
             {
                 case "all":
                     newState = initialFieldState;
+                    newState.status = state.status;
                     break;
                 case "admin":
                     newState.adminField = emptyList;
+                    break;
+                case "address":
+                    newState.addressField = emptyList;
                     break;
                 case "issue":
                     newState.issueField = emptyList;
@@ -79,6 +94,7 @@ const fieldReducer = (state=initialFieldState, action) => {
             break;
         case "ADDADMIN":
             newList = [...state.adminField];
+            freshen(newList);
             newList.push(action.payload);
             newList.sort();
             newState.adminField = newList;
@@ -94,8 +110,27 @@ const fieldReducer = (state=initialFieldState, action) => {
             newList.splice(i, 1);
             newState.adminField = newList;
             break;
+        case "ADDADDRESS":
+            newList = [...state.addressField];
+            freshen(newList);
+            newList.push(action.payload);
+            newList.sort();
+            newState.addressField = newList;
+            break;
+        case "DELETEADDRESS":
+            newList = [...state.addressField];
+            i = 0;
+            length = newList.length;
+            for(i; i<length; i++)
+            {
+                if(newList[i] === action.payload){break;}
+            }
+            newList.splice(i, 1);
+            newState.addressField = newList;
+            break;
         case "ADDISSUE":
             newList = [...state.issueField];
+            freshen(newList);
             newList.push(action.payload);
             newList.sort();
             newState.issueField = newList;
@@ -113,6 +148,7 @@ const fieldReducer = (state=initialFieldState, action) => {
             break;
         case "ADDRESPONSE":
             newList = [...state.responseField];
+            freshen(newList);
             newList.push(action.payload);
             newList.sort();
             newState.responseField = newList;
@@ -130,6 +166,7 @@ const fieldReducer = (state=initialFieldState, action) => {
             break;
         case "ADDPROGRAM":
             newList = [...state.programField];
+            freshen(newList);
             newList.push(action.payload);
             newList.sort();
             newState.programField = newList;
@@ -147,6 +184,8 @@ const fieldReducer = (state=initialFieldState, action) => {
             break;
         case "ADDUSER":
             newList = [...state.userField];
+            freshen(newList);
+
             newList.push(action.payload);
             newList.sort();
             newState.userField = newList;
@@ -161,12 +200,6 @@ const fieldReducer = (state=initialFieldState, action) => {
             }
             newList.splice(i, 1);
             newState.userField = newList;
-            break;
-        case "ADDADDRESS":
-            console.log("Addresses?");
-            break;
-        case "DELETEADDRESS":
-            console.log("Addresses?");
             break;
         default:
             break;

@@ -1,0 +1,1 @@
+export const emptyMsg = "No elements found, would you like to add it instead?";

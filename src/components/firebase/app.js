@@ -2,23 +2,24 @@
 import firebase from 'firebase/app'; 
 import 'firebase/auth';
 import 'firebase/database';
-  const config = {
-    apiKey: "AIzaSyDWT1HRjJ-p0jH5pjQPtWLSVuZ2xxyWIDU",
-    authDomain: "hfac-sc.firebaseapp.com",
-    databaseURL: "https://hfac-sc.firebaseio.com",
-    projectId: "hfac-sc",
-    storageBucket: "hfac-sc.appspot.com",
-    messagingSenderId: "432119133740"
-  };
+import {config} from '../../constants/config';
   function parseString(inStr)
   {
-    var ret = inStr.replace(/\./g, "");
-    ret = ret.replace(/#/g, "");
-    ret = ret.replace(/\$/g, "");
-    ret = ret.replace(/\[/g, "");
-    ret = ret.replace(/\]/g, "");
+    var ret = inStr.replace(/\./g, "+");
+    ret = ret.replace(/#/g, "<");
+    ret = ret.replace(/\$/g, ">");
+    ret = ret.replace(/\[/g, "&");
+    ret = ret.replace(/\]/g, "=");
+    return ret; 
+  }
+  function revertParse(inStr)
+  {
+    var ret = inStr.replace(/\+/g, ".");
+    ret = ret.replace(/</g, "#");
+    ret = ret.replace(/>/g, "$");
+    ret = ret.replace(/&/g, "[");
+    ret = ret.replace(/=/g, "]");
     return ret;
-    
   }
   function findAdmin(toFind, func)
     {
@@ -100,16 +101,17 @@ import 'firebase/database';
       db.child(path).once('value').then(function(snapshot){
         if(!snapshot.exists())
         {
-          statusBind("Could not search " + inObj.type + "s as they do not exist in the database");
+          //statusBind("Could not search " + inObj.type + "s as they do not exist in the database");
           return ;
         }
         inObj.updateListBind("", inObj.type, true);
         snapshot.forEach(function(secondSnap){
           const subString = inObj.substr.toLowerCase();
-          const entry = ("" + secondSnap.key).toLowerCase();
-          if(entry.includes(subString))
+          const entry = revertParse("" + secondSnap.key);
+          const lowered = entry.toLowerCase();
+          if(lowered.includes(subString))
           {
-            inObj.updateListBind(secondSnap.key, inObj.type);
+            inObj.updateListBind(entry, inObj.type);
           }
         });
         
