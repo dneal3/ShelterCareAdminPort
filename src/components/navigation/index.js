@@ -6,10 +6,6 @@ import SignOut from '../signOut';
 
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { liked: false };
-  }
 
   signOutUser(){
     this.props.userSignOut();
@@ -17,26 +13,41 @@ class Navbar extends React.Component {
 
   render() {
     // should try to add ico next to the sheltercare brand item
+    var ss='';
+    var docs='';
+
+    console.log('nav props', this.props);
+
+    if(this.props.user.isAdmin) {
+        ss = (
+            <li className="nav-item">
+                <a className="nav-link" href="#"> Encounters Spreadsheet </a>
+            </li>
+        );
+
+        docs = (<li className="nav-item">
+                <a className='nav-link' href="#"> Docs </a>
+            </li>
+            );
+    }
 
     return (
-      <nav className="navbar navbar-default">
-        <div className='container-fluid'>
-            <div className='navbar-header'>
-                <ul className='nav navbar-nav'>
-                    <li> <h4 id='comp-name' className="navbar-brand"> ShelterCare Admin Portal </h4> </li>
-                    <li> <h10>{"Hello " + this.props.user.userName}</h10> </li>
+        <nav id='navbar-style' className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <span id='comp-name' className='navbar-brand mb-0 h1'> ShelterCare Admin Portal </span>
+            <div className="collapse navbar-collapse">
+                <ul className="navbar-nav mr-auto">
+                    {ss}
+                    {docs}
                 </ul>
-            
-            </div>
+            </div> 
             <FirebaseContext.Consumer>
                 {
                     firebase => 
-                        <SignOut firebase = {firebase} signOutBind = {this.signOutUser.bind(this)}/>
+                        <SignOut className='btn my-2 my-sm-0' id='signOutButton' firebase = {firebase} signOutBind = {this.signOutUser.bind(this)}/>
                 
                 }
             </FirebaseContext.Consumer>
-        </div>
-      </nav>
+    </nav>
     );
   }
 }

@@ -7,7 +7,7 @@ import App from './components/app';
 import * as serviceWorker from './serviceWorker';
 import Firebase, {FirebaseContext} from './components/firebase';
 import {emptyMsg} from './constants/emptyMessages';
-import Navbar from './components/navigation'
+import Navbar from './components/navigation';
 
 const initialState = {userSignedIn: false,
     email: "",
@@ -213,6 +213,7 @@ const store = createStore(combineReducers({userAuthReducer, fieldReducer}));
 //store.subscribe(()=>{console.log(store.getState())});
 
 const firedb = new Firebase();
+
 
 ReactDOM.render(
         <Provider store={store}>

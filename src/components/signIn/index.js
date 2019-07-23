@@ -11,7 +11,6 @@ class SignIn extends React.Component{
     render(){
         return(
             <div className="signIn">
-                
                 <table className="signIn-table">
                     <tbody>
                     <tr>
@@ -21,7 +20,8 @@ class SignIn extends React.Component{
                     </tr>
                     <tr>
                         <td>
-                            <button className="btn btn-success btn-md"  id="signIn-button" onClick={() => {this.props.firebase.doSignIn(this.props.userSignIn)}}>Sign in!</button>   
+                            <button className="btn btn-success btn-md"  id="signIn-button" onClick={() => 
+                                {this.props.firebase.doSignIn(this.props.userSignIn)}}>Sign in!</button>   
                         </td>
                     </tr>
                     </tbody>

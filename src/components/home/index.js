@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Logs from '../logs';
+import Fields from '../fieldBar';
 import { FirebaseContext } from '../firebase';
-import SignOut from '../signOut';
-import Admin from '../admin';
-import Account from '../account';
 
 
 class Home extends React.Component{
@@ -16,27 +15,38 @@ class Home extends React.Component{
             isAdmin: false
         };
     }
+
     signOutUser(){
         this.props.userSignOut();
     }
+    
     render(){
-        var adminPage = ""
-        var accountPage = ""
-        if(this.props.user.userSignedIn)
-        {
-            accountPage = <Account userName = {this.props.user.userName} userEmail={this.props.user.email}></Account>
-        }
+        var dbtables  = undefined;
+        var logs = undefined;
+
+        
+        
         if(this.props.user.isAdmin)
         {
-            adminPage = <Admin />
+            dbtables = 
+                (<FirebaseContext.Consumer>
+                    {
+                        firebaseIn => 
+                        <Fields firebase = {firebaseIn}/>
+                    }
+                </FirebaseContext.Consumer> );
+            logs = <Logs user={this.props.user} />
+
         }
+        
         return (
             <div>
-                {accountPage}
-                {adminPage}
+                {logs}
+                {dbtables}
             </div>
-            
+
         );
+
     }
 }
 

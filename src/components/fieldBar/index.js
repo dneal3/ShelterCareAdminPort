@@ -58,13 +58,11 @@ class Fields extends React.Component
        // console.log(this.props.fields);
         return(
             <div>
-                <br/>
-                <hr/>
-                <Accordion allowMultiple = {true}>
+                <Accordion allowMultiple className='container-fluid'>
         {['User', 'Admin', 'Program', 'Issue', 'Response', 'Address'].map(item => {
           return (
-            <AccordionItem key = {item+"-accordian"} title={`${item}`} >
-              <DatabaseTable updateList = {this.updateList.bind(this)} query = {item} firebase = {this.props.firebase} updateStatus = {this.props.updateStatus} updateField = {this.props.updateField} elements = {this.getField(item.toLowerCase())}/>
+            <AccordionItem key = {item+"-accordian"} title={`${item} List`}>
+              <DatabaseTable updateList = {this.updateList.bind(this)} query={item} firebase={this.props.firebase} updateStatus={this.props.updateStatus} updateField={this.props.updateField} elements={this.getField(item.toLowerCase())}/>
             </AccordionItem>
 
           );

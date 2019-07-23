@@ -1,1 +1,1 @@
-export const emptyMsg = "No elements found, would you like to add it instead?";
+export const emptyMsg = "No elements matching your query were found, to add your query to this list press the add button.";

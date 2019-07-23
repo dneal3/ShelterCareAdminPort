@@ -1,6 +1,7 @@
 import React from 'react';
-import './App.css';
 import {emptyMsg} from '../../constants/emptyMessages';
+
+/*
   class ExpandMinimizeButton extends React.Component {
     constructor(props) {
       super(props);
@@ -14,7 +15,7 @@ import {emptyMsg} from '../../constants/emptyMessages';
       if(this.state.symbol === "Expand") {
         this.setState({
           symbol: "Minimize"
-        })
+        });
       }
       else {
         this.setState({
@@ -30,6 +31,7 @@ import {emptyMsg} from '../../constants/emptyMessages';
     }
   
   }
+  */
 
   export class DatabaseTable extends React.Component {
     constructor(props){
@@ -58,8 +60,6 @@ import {emptyMsg} from '../../constants/emptyMessages';
       if(this.props.elements.length === 0)
       {
         this.props.updateList(emptyMsg, this.field);
-        //console.log(this.props);
-        //console.log(this.field);
       }
     }
     addButtonClick()
@@ -87,10 +87,10 @@ import {emptyMsg} from '../../constants/emptyMessages';
         }
         else 
         {
-          button = <button id='add-btn' className='btn btn-success btn-sm' onClick={()=>{
+          button = <button id='addnew-btn' className='btn btn-success btn-sm' onClick={()=>{
               this.addButtonClick();
             }
-          }>Add now</button> 
+          }>Add</button> 
         }
         return (
           <tr key={i}>

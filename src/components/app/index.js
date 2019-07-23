@@ -3,6 +3,7 @@ import {connect } from 'react-redux';
 import Home from '../home';
 import SignIn from '../signIn';
 import { FirebaseContext } from '../firebase';
+import '../../index.css';
 
 class App extends React.Component
 {
@@ -19,10 +20,14 @@ class App extends React.Component
 		this.toRender = this.signInComponent;
 	}
 	render(){
-		//console.log(this.props);
-
-		if (this.props.auth.userSignedIn){this.toRender = <Home />;}
-		else {this.toRender = this.signInComponent;}
+		if (this.props.auth.userSignedIn)
+		{
+			this.toRender = <Home  />;
+		}
+		else 
+		{
+			this.toRender = this.signInComponent;
+		}
 		return(
 			<div>
 				{this.toRender}
