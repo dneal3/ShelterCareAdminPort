@@ -95,7 +95,7 @@ import {emptyMsg} from '../../constants/emptyMessages';
         return (
           <tr key={i}>
             <td key={i}> {item} </td>
-            <td>{button}</td>
+            <td id='add-btn-td'>{button}</td>
           </tr>
         );} 
         ) 
@@ -108,7 +108,7 @@ import {emptyMsg} from '../../constants/emptyMessages';
                 <td>
                   <input className='form-control' id={this.field+"SearchInput"} type="text" placeholder="search" onChange={(event)=>{this.setSearch(this.field,event)}}></input>
                 </td>
-                <td>
+                <td id='add-btn-td'>
                   <button id='add-btn' className='btn btn-success btn-sm' onClick={()=>{
                       this.addButtonClick();
                     }

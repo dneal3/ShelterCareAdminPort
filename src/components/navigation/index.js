@@ -16,8 +16,6 @@ class Navbar extends React.Component {
     var ss='';
     var docs='';
 
-    console.log('nav props', this.props);
-
     if(this.props.user.isAdmin) {
         ss = (
             <li className="nav-item">

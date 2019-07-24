@@ -40,6 +40,7 @@ code {
   border-width: 1px;
   background-color: rgb(249, 247, 231);
 }
+
 .signIn-table td{
   display: inline-block;
   padding: 15px;
@@ -111,19 +112,19 @@ footer {
 
 .form-control {
   display: inline;
-  max-width: 2.5in;
+  width: 3in;
   margin: 0px 0px 0px 0px;
 }
 
 .tables {
   font-size: 20px;
-  margin: 0px 10px 50px 10px;
+  margin: 0px 0px 50px 10px !important;
   box-shadow: 1px 1px 1px grey;
   background-color:  rgb(249, 247, 231);
   border-style: solid;
   border-width: 1px;
   border-radius: 2px;
-  width: 4.02in;
+  width: min-content;
   border-color: black;
   border-collapse: collapse;
 }
@@ -138,12 +139,28 @@ footer {
   margin: 0px;
 }
 
+#signin-row {
+  border-top: none;
+}
+
+#add-btn-td{
+  text-align: right;
+}
+
 #rem-btn{
-  padding: 1px 9px;
-  font-size: 15px;
+  padding: 0px 9.5px;
+  font-size: 17px;
   margin: 5px;
   border-radius: 50%;
   text-align: center;
+}
+
+table td, .table th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+  border-width: thin;
+  width: 4in;
 }
 
 #add-btn {
