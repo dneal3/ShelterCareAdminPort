@@ -72,10 +72,12 @@ import {emptyMsg} from '../../constants/emptyMessages';
         this.props.updateStatus("Cannot add an empty string to the database");
         return ;
       }
-      if (toAdd.slice(toAdd.length-16, toAdd.length) !== '@sheltercare.org'){
-        alert('Emails added must have ending @sheltercare.org');
-        this.props.updateStatus('Emails added must have ending @sheltercare.org');
-        return ;
+      if (this.query === 'User' || this.query=== 'Admin' ){
+        if (toAdd.slice(toAdd.length-16, toAdd.length) !== '@sheltercare.org'){
+          alert('Emails added must have ending @sheltercare.org');
+          this.props.updateStatus('Emails added must have ending @sheltercare.org');
+          return ;
+        }
       }
       this.props.firebase.doAddHelper({type: this.field, adding: toAdd, statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADD"+this.field_upper, toAdd);});
       input.value = "";
