@@ -15,18 +15,33 @@ class Navbar extends React.Component {
     // should try to add ico next to the sheltercare brand item
     var ss='';
     var docs='';
+    var btn = '';
+
+    console.log(this.props);
 
     if(this.props.user.isAdmin) {
         ss = (
             <li className="nav-item">
-                <a className="nav-link" href="#"> Encounters Spreadsheet </a>
+                <a className="nav-link" rel="noopener noreferrer" target='_blank' href="https://docs.google.com/spreadsheets/d/1jKAy71Lb1o-dv_rnNvMlrQNqV6dxBx_UYAbNgz2Ptlk/edit?ts=5d40ce16#gid=0"> Encounters Spreadsheet </a>
             </li>
         );
 
+        // docs link not real yet
         docs = (<li className="nav-item">
-                <a className='nav-link' href="#"> Docs </a>
+                <a className='nav-link' rel="noopener noreferrer" target='_blank' href="#"> Docs </a>
             </li>
             );
+    }
+
+    if(this.props.user.userSignedIn) {
+        btn = (<FirebaseContext.Consumer>
+        {
+            firebase => 
+                <SignOut className='btn my-2 my-sm-0' id='signOutButton' firebase = {firebase} signOutBind = {this.signOutUser.bind(this)}/>
+        
+        }
+        </FirebaseContext.Consumer>);
+
     }
 
     return (
@@ -38,13 +53,8 @@ class Navbar extends React.Component {
                     {docs}
                 </ul>
             </div> 
-            <FirebaseContext.Consumer>
-                {
-                    firebase => 
-                        <SignOut className='btn my-2 my-sm-0' id='signOutButton' firebase = {firebase} signOutBind = {this.signOutUser.bind(this)}/>
-                
-                }
-            </FirebaseContext.Consumer>
+            {btn}
+            
     </nav>
     );
   }
