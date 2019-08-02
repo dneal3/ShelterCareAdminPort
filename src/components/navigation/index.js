@@ -22,13 +22,13 @@ class Navbar extends React.Component {
     if(this.props.user.isAdmin) {
         ss = (
             <li className="nav-item">
-                <a className="nav-link" rel="noopener noreferrer" target='_blank' href="https://docs.google.com/spreadsheets/d/1jKAy71Lb1o-dv_rnNvMlrQNqV6dxBx_UYAbNgz2Ptlk/edit?ts=5d40ce16#gid=0"> Encounters Spreadsheet </a>
+                <a className="nav-link" rel="noopener noreferrer" target='_blank' href="https://docs.google.com/spreadsheets/d/1jKAy71Lb1o-dv_rnNvMlrQNqV6dxBx_UYAbNgz2Ptlk/edit?ts=5d40ce16#gid=0"> Encounter Spreadsheet </a>
             </li>
         );
 
         // docs link not real yet
         docs = (<li className="nav-item">
-                <a className='nav-link' rel="noopener noreferrer" target='_blank' href="#"> Docs </a>
+                <a className='nav-link' rel="noopener noreferrer" target='_blank' href="#"> Admin Guide </a>
             </li>
             );
     }
