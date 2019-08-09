@@ -25,7 +25,7 @@ class Navbar extends React.Component {
 
         // docs link not real yet
         docs = (<li className="nav-item">
-                <a className='nav-link' rel="noopener noreferrer" target='_blank' href="#"> Admin Guide </a>
+                <a className='nav-link' rel="noopener noreferrer" target='_blank' href="/AdminGuide.pdf"> Admin Guide </a>
             </li>
             );
     }
