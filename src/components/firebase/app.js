@@ -27,7 +27,6 @@ import {config} from '../../constants/config';
       // isAdmin is a bool that states if this account is a verified admin able to view the page
       var db = firebase.database().ref();
       const query = '/admins/'+parseString(toFind.email);
-      console.log("database query: "+query);
 
       db.child(query).once('value').then(function(snapshot) {
         if(snapshot.exists())
@@ -43,7 +42,7 @@ import {config} from '../../constants/config';
       return ;
     }
     
-  
+  var signingIn = false;
   class Firebase{
     constructor(){
       firebase.initializeApp(config);
@@ -52,15 +51,17 @@ import {config} from '../../constants/config';
     doSignIn(cleanUpFunc) {
       //signs in user if a user is not signed in already
       var a = firebase.auth();
-      if(a.currentUser == null)
+      if(a.currentUser == null && !signingIn)
       {
         console.log("signing in");
+        signingIn = true;
         var provider = new firebase.auth.GoogleAuthProvider();
         var user = a.signInWithPopup(provider);
 
         user.then(function(result)
         {
-          findAdmin({email:result.user.email, name:result.user.displayName}, cleanUpFunc)
+          findAdmin({email:result.user.email, name:result.user.displayName}, cleanUpFunc);
+          signingIn = false;
         })
         //error code that warns user of potential mishaps
         .catch(function(error)
@@ -74,6 +75,7 @@ import {config} from '../../constants/config';
           {
             alert(error);
           }
+          signingIn = false;
         });
       }
       else
@@ -129,7 +131,7 @@ import {config} from '../../constants/config';
       db.child(query).once('value').then(function(snapshot) {
         if(snapshot.exists())
         {
-          refs.statusFunc("Failed to add "+ refs.type+" " + refs.adding +"\n REASON: "+ refs.type+" already exists in database");
+          refs.statusFunc(refs.type+" already exists in database");
         }
         else
         {

@@ -64,8 +64,32 @@ import {emptyMsg} from '../../constants/emptyMessages';
     }
     addButtonClick()
     {
+      const toAdd = prompt("Enter a new " + this.field);
+      if(toAdd == null){
+        return null;
+      }
+      if(toAdd === "")
+      {
+        alert('Cannot add empty queries to the database');
+        this.props.updateStatus("Cannot add an empty field to the database");
+        return ;
+      }
+      if (this.query === 'User' || this.query=== 'Admin' ){
+        if (toAdd.slice(toAdd.length-16, toAdd.length) !== '@sheltercare.org'){
+          alert('Emails added must have ending @sheltercare.org');
+          this.props.updateStatus('Emails added must have ending @sheltercare.org');
+          return ;
+        }
+      }
+      this.props.firebase.doAddHelper({type: this.field, adding: toAdd, statusFunc: this.props.updateStatus}, () => {this.props.updateField("ADD"+this.field_upper, toAdd);});
+      setTimeout( ()=>{
+        this.props.firebase.doSearch({type:this.field, substr: "", updateListBind: this.props.updateList}, this.props.updateStatus);
+      },180);
+    }
+    emptySearchAddButtonClick()
+    {
       const input = window.document.getElementById(this.field+"SearchInput");
-      const toAdd = input.value;
+      var toAdd = input.value;
       if(toAdd === "")
       {
         alert('Cannot add empty queries to the database');
@@ -73,6 +97,9 @@ import {emptyMsg} from '../../constants/emptyMessages';
         return ;
       }
       if (this.query === 'User' || this.query=== 'Admin' ){
+        if(!toAdd.includes("@sheltercare.org")){
+          toAdd = toAdd + "@sheltercare.org";
+        }
         if (toAdd.slice(toAdd.length-16, toAdd.length) !== '@sheltercare.org'){
           alert('Emails added must have ending @sheltercare.org');
           this.props.updateStatus('Emails added must have ending @sheltercare.org');
@@ -96,7 +123,7 @@ import {emptyMsg} from '../../constants/emptyMessages';
         else 
         {
           button = <button id='addnew-btn' className='btn btn-success btn-sm' onClick={()=>{
-              this.addButtonClick();
+              this.emptySearchAddButtonClick();
             }
           }>Add</button> 
         }

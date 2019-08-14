@@ -21,7 +21,9 @@ class SignIn extends React.Component{
                     <tr>
                         <td id='signin-row'>
                             <button className="btn btn-success btn-md"  id="signIn-button" onClick={() => 
-                                {this.props.firebase.doSignIn(this.props.userSignIn)}}>Sign in!</button>   
+                                {
+                                    this.props.firebase.doSignIn(this.props.userSignIn)
+                                }}>Sign in!</button>   
                         </td>
                     </tr>
                     </tbody>

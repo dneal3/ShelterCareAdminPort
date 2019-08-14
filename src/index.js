@@ -49,7 +49,6 @@ function freshen(listIn)
     // removes no entries message from the list
     if(listIn.length === 1 && listIn[0] === emptyMsg )
     {
-        console.log("popping from: ", listIn);
         listIn.pop();
     }
 }
