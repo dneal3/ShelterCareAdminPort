@@ -180,7 +180,7 @@ table td, .table th {
 #addnew-btn {
   padding: 6px 5px;
   font-size: 14px;
-  margin: 5px;
+  margin: 0px;
   border-radius: 50%;
   text-align: center;
 }
