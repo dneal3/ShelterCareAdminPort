@@ -10,6 +10,8 @@ import {config} from '../../constants/config';
     ret = ret.replace(/\$/g, ">");
     ret = ret.replace(/\[/g, "&");
     ret = ret.replace(/\]/g, "=");
+    ret = ret.replace(/\//g, "_");
+
     return ret; 
   }
   function revertParse(inStr)
@@ -19,6 +21,8 @@ import {config} from '../../constants/config';
     ret = ret.replace(/>/g, "$");
     ret = ret.replace(/&/g, "[");
     ret = ret.replace(/=/g, "]");
+    ret = ret.replace(/_/g, "/");
+
     return ret;
   }
   function findAdmin(toFind, func)
@@ -42,11 +46,41 @@ import {config} from '../../constants/config';
       return ;
     }
     
-  var signingIn = false;
+  var signingIn = false; // ensure only one pop up exists at a time
+  var local_addresses = [];
+  var local_responses = [];
+  var local_issues = [];
+  var local_program = [];
+  var local_admin = [];
+  var local_user = [];
+
+
   class Firebase{
     constructor(){
       firebase.initializeApp(config);
       console.log("firebase intialized");
+    }
+    getLocal(type){
+      var toSearch;
+      if(type === "address"){
+        toSearch = local_addresses;
+      }
+      else if(type === "response"){
+        toSearch = local_responses;
+      }
+      else if(type === "issue"){
+        toSearch = local_issues;
+      }
+      else if(type === "program"){
+        toSearch = local_program;
+      }
+      else if(type === "admin"){
+        toSearch = local_admin;
+      }
+      else if(type === "user"){
+        toSearch = local_user;
+      }
+      return toSearch;
     }
     doSignIn(cleanUpFunc) {
       //signs in user if a user is not signed in already
@@ -54,14 +88,14 @@ import {config} from '../../constants/config';
       if(a.currentUser == null && !signingIn)
       {
         console.log("signing in");
-        signingIn = true;
+        signingIn = true;   //close to other pop ups
         var provider = new firebase.auth.GoogleAuthProvider();
         var user = a.signInWithPopup(provider);
 
         user.then(function(result)
         {
           findAdmin({email:result.user.email, name:result.user.displayName}, cleanUpFunc);
-          signingIn = false;
+          signingIn = false;  //open to other pop ups
         })
         //error code that warns user of potential mishaps
         .catch(function(error)
@@ -75,7 +109,7 @@ import {config} from '../../constants/config';
           {
             alert(error);
           }
-          signingIn = false;
+          signingIn = false;  //open to other pop ups
         });
       }
       else
@@ -98,23 +132,39 @@ import {config} from '../../constants/config';
     //    when a match is found, inObj.updateListBind(match) is called
     // Sets the status log by calling statusBind
     {
+      const subString = inObj.substr.toLowerCase();
+      inObj.updateListBind("", inObj.type, true);
+      var toSearch = this.getLocal(inObj.type);
+      if(toSearch.length > 0){
+        toSearch.forEach(
+          (item)=>{
+            if(item.toLowerCase().includes(subString)){
+              inObj.updateListBind(item, inObj.type);
+            }
+          }
+        );
+        return ;
+      }
+
       var db = firebase.database().ref();
-      var path = "/"+parseString(inObj.type)+"s/";
+      const ending = inObj.type === "address" ? "es/" : "s/";
+      var path = "/"+parseString(inObj.type)+ending;
       db.child(path).once('value').then(function(snapshot){
         if(!snapshot.exists())
         {
           //statusBind("Could not search " + inObj.type + "s as they do not exist in the database");
           return ;
         }
-        inObj.updateListBind("", inObj.type, true);
         snapshot.forEach(function(secondSnap){
-          const subString = inObj.substr.toLowerCase();
+          
           const entry = revertParse("" + secondSnap.key);
           const lowered = entry.toLowerCase();
           if(lowered.includes(subString))
           {
             inObj.updateListBind(entry, inObj.type);
           }
+          toSearch.push(entry);
+          
         });
         
       });
@@ -124,9 +174,13 @@ import {config} from '../../constants/config';
       //Attemps to add an object to the database
       //recieves an object with attributes type, adding, statusFunc, then adds these to the
       //    database to the corresponding values
+
+      var cache = this.getLocal(refs.type);
+      
       var db = firebase.database().ref();
+      const ending = refs.type === "address" ? "es/" : "s/";
       const parsedStr = parseString(refs.adding);
-      const query = '/'+refs.type+'s/'+parsedStr;
+      const query = '/'+refs.type+ending+parsedStr;
 
       db.child(query).once('value').then(function(snapshot) {
         if(snapshot.exists())
@@ -135,6 +189,11 @@ import {config} from '../../constants/config';
         }
         else
         {
+          if(!cache.includes(refs.adding))
+          {
+            cache.push(refs.adding);
+          }
+
           var updates = {};
           updates[query] = true;
           db.update(updates);
@@ -151,10 +210,13 @@ import {config} from '../../constants/config';
     doDeleteHelper(refs, reduxBind = () => {})
     {
       //Attemps to delete an user to the database
+      var cache = this.getLocal(refs.type);
+      
       var db = firebase.database().ref();
+      const ending = refs.type === "address" ? "es/" : "s/";
       const parsedStr = parseString(refs.deleting);
-      const query = '/'+refs.type+'s/'+parsedStr;
-
+      const query = '/'+refs.type+ending+parsedStr;
+      console.log("deleting from: ", query);
       db.child(query).once('value').then(function(snapshot) {
         if(snapshot.exists())
         {
@@ -162,6 +224,11 @@ import {config} from '../../constants/config';
           if(window.confirm(confirmStr))
           {
             db.child(query).remove();
+            if(cache.includes(refs.deleting))
+            {
+              var index = cache.indexOf(refs.deleting);
+              cache.splice(index, 1);
+            }
             reduxBind();
             refs.statusFunc("Successfully deleted "+refs.type+ " "+ refs.deleting);
           }

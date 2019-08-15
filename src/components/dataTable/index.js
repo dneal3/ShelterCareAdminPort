@@ -64,7 +64,7 @@ import {emptyMsg} from '../../constants/emptyMessages';
     }
     addButtonClick()
     {
-      const toAdd = prompt("Enter a new " + this.field);
+      var toAdd = prompt("Enter a new " + this.field);
       if(toAdd == null){
         return null;
       }
@@ -75,6 +75,9 @@ import {emptyMsg} from '../../constants/emptyMessages';
         return ;
       }
       if (this.query === 'User' || this.query=== 'Admin' ){
+        if(!toAdd.includes("@sheltercare.org") && !toAdd.includes("@")){
+          toAdd = toAdd + "@sheltercare.org";
+        }
         if (toAdd.slice(toAdd.length-16, toAdd.length) !== '@sheltercare.org'){
           alert('Emails added must have ending @sheltercare.org');
           this.props.updateStatus('Emails added must have ending @sheltercare.org');
@@ -97,7 +100,7 @@ import {emptyMsg} from '../../constants/emptyMessages';
         return ;
       }
       if (this.query === 'User' || this.query=== 'Admin' ){
-        if(!toAdd.includes("@sheltercare.org")){
+        if(!toAdd.includes("@sheltercare.org") && !toAdd.includes("@")){
           toAdd = toAdd + "@sheltercare.org";
         }
         if (toAdd.slice(toAdd.length-16, toAdd.length) !== '@sheltercare.org'){
